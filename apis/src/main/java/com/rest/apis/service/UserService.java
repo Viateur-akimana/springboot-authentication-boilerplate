@@ -1,6 +1,5 @@
 package com.rest.apis.service;
 
-
 import com.rest.apis.model.User;
 import com.rest.apis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +21,20 @@ public class UserService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    private BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(12);
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-    public User register(User user){
+    public User register(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepo.save(user);
     }
 
-    public String verify(User user){
-        Authentication authentication= authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getName(),user.getPassword()));
-        if(authentication.isAuthenticated())
+    public String verify(User user) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword())
+        );
+        if (authentication.isAuthenticated()) {
             return jwtService.generateToken(user.getName());
+        }
+        return null;
     }
-
-
 }
