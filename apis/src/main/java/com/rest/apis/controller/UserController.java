@@ -1,7 +1,6 @@
 package com.rest.apis.controller;
 
 import com.rest.apis.model.User;
-import com.rest.apis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
